@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ol.dao.ExamStuMapper">
+  <resultMap id="BaseResultMap" type="com.ol.entity.system.ExamStu">
+    <id column="exam_stu_id" jdbcType="INTEGER" property="examStuId" />
+    <result column="exam_stu_name" jdbcType="VARCHAR" property="examStuName" />
+    <result column="exam_stu_number" jdbcType="VARCHAR" property="examStuNumber" />
+    <result column="exam_stu_password" jdbcType="VARCHAR" property="examStuPassword" />
+    <result column="exam_stu_sex" jdbcType="VARCHAR" property="examStuSex" />
+    <result column="exam_stu_birthday" jdbcType="DATE" property="examStuBirthday" />
+    <result column="exam_stu_tel" jdbcType="VARCHAR" property="examStuTel" />
+    <result column="exam_stu_address" jdbcType="VARCHAR" property="examStuAddress" />
+    <result column="exam_stu_done" jdbcType="INTEGER" property="examStuDone" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    exam_stu_id, exam_stu_name, exam_stu_number, exam_stu_password, exam_stu_sex, exam_stu_birthday, 
+    exam_stu_tel, exam_stu_address, exam_stu_done
+  </sql>
+  <select id="selectByExample" parameterType="com.ol.entity.system.ExamStuVO" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from exam_stu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from exam_stu
+    where exam_stu_id = #{examStuId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from exam_stu
+    where exam_stu_id = #{examStuId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ol.entity.system.ExamStuVO">
+    delete from exam_stu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ol.entity.system.ExamStu">
+    insert into exam_stu (exam_stu_id, exam_stu_name, exam_stu_number, 
+      exam_stu_password, exam_stu_sex, exam_stu_birthday, 
+      exam_stu_tel, exam_stu_address, exam_stu_done
+      )
+    values (#{examStuId,jdbcType=INTEGER}, #{examStuName,jdbcType=VARCHAR}, #{examStuNumber,jdbcType=VARCHAR}, 
+      #{examStuPassword,jdbcType=VARCHAR}, #{examStuSex,jdbcType=VARCHAR}, #{examStuBirthday,jdbcType=DATE}, 
+      #{examStuTel,jdbcType=VARCHAR}, #{examStuAddress,jdbcType=VARCHAR}, #{examStuDone,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ol.entity.system.ExamStu">
+    insert into exam_stu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="examStuId != null">
+        exam_stu_id,
+      </if>
+      <if test="examStuName != null">
+        exam_stu_name,
+      </if>
+      <if test="examStuNumber != null">
+        exam_stu_number,
+      </if>
+      <if test="examStuPassword != null">
+        exam_stu_password,
+      </if>
+      <if test="examStuSex != null">
+        exam_stu_sex,
+      </if>
+      <if test="examStuBirthday != null">
+        exam_stu_birthday,
+      </if>
+      <if test="examStuTel != null">
+        exam_stu_tel,
+      </if>
+      <if test="examStuAddress != null">
+        exam_stu_address,
+      </if>
+      <if test="examStuDone != null">
+        exam_stu_done,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="examStuId != null">
+        #{examStuId,jdbcType=INTEGER},
+      </if>
+      <if test="examStuName != null">
+        #{examStuName,jdbcType=VARCHAR},
+      </if>
+      <if test="examStuNumber != null">
+        #{examStuNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="examStuPassword != null">
+        #{examStuPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="examStuSex != null">
+        #{examStuSex,jdbcType=VARCHAR},
+      </if>
+      <if test="examStuBirthday != null">
+        #{examStuBirthday,jdbcType=DATE},
+      </if>
+      <if test="examStuTel != null">
+        #{examStuTel,jdbcType=VARCHAR},
+      </if>
+      <if test="examStuAddress != null">
+        #{examStuAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="examStuDone != null">
+        #{examStuDone,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ol.entity.system.ExamStuVO" resultType="java.lang.Integer">
+    select count(*) from exam_stu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update exam_stu
+    <set>
+      <if test="record.examStuId != null">
+        exam_stu_id = #{record.examStuId,jdbcType=INTEGER},
+      </if>
+      <if test="record.examStuName != null">
+        exam_stu_name = #{record.examStuName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.examStuNumber != null">
+        exam_stu_number = #{record.examStuNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.examStuPassword != null">
+        exam_stu_password = #{record.examStuPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.examStuSex != null">
+        exam_stu_sex = #{record.examStuSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.examStuBirthday != null">
+        exam_stu_birthday = #{record.examStuBirthday,jdbcType=DATE},
+      </if>
+      <if test="record.examStuTel != null">
+        exam_stu_tel = #{record.examStuTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.examStuAddress != null">
+        exam_stu_address = #{record.examStuAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.examStuDone != null">
+        exam_stu_done = #{record.examStuDone,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update exam_stu
+    set exam_stu_id = #{record.examStuId,jdbcType=INTEGER},
+      exam_stu_name = #{record.examStuName,jdbcType=VARCHAR},
+      exam_stu_number = #{record.examStuNumber,jdbcType=VARCHAR},
+      exam_stu_password = #{record.examStuPassword,jdbcType=VARCHAR},
+      exam_stu_sex = #{record.examStuSex,jdbcType=VARCHAR},
+      exam_stu_birthday = #{record.examStuBirthday,jdbcType=DATE},
+      exam_stu_tel = #{record.examStuTel,jdbcType=VARCHAR},
+      exam_stu_address = #{record.examStuAddress,jdbcType=VARCHAR},
+      exam_stu_done = #{record.examStuDone,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ol.entity.system.ExamStu">
+    update exam_stu
+    <set>
+      <if test="examStuName != null">
+        exam_stu_name = #{examStuName,jdbcType=VARCHAR},
+      </if>
+      <if test="examStuNumber != null">
+        exam_stu_number = #{examStuNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="examStuPassword != null">
+        exam_stu_password = #{examStuPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="examStuSex != null">
+        exam_stu_sex = #{examStuSex,jdbcType=VARCHAR},
+      </if>
+      <if test="examStuBirthday != null">
+        exam_stu_birthday = #{examStuBirthday,jdbcType=DATE},
+      </if>
+      <if test="examStuTel != null">
+        exam_stu_tel = #{examStuTel,jdbcType=VARCHAR},
+      </if>
+      <if test="examStuAddress != null">
+        exam_stu_address = #{examStuAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="examStuDone != null">
+        exam_stu_done = #{examStuDone,jdbcType=INTEGER},
+      </if>
+    </set>
+    where exam_stu_id = #{examStuId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ol.entity.system.ExamStu">
+    update exam_stu
+    set exam_stu_name = #{examStuName,jdbcType=VARCHAR},
+      exam_stu_number = #{examStuNumber,jdbcType=VARCHAR},
+      exam_stu_password = #{examStuPassword,jdbcType=VARCHAR},
+      exam_stu_sex = #{examStuSex,jdbcType=VARCHAR},
+      exam_stu_birthday = #{examStuBirthday,jdbcType=DATE},
+      exam_stu_tel = #{examStuTel,jdbcType=VARCHAR},
+      exam_stu_address = #{examStuAddress,jdbcType=VARCHAR},
+      exam_stu_done = #{examStuDone,jdbcType=INTEGER}
+    where exam_stu_id = #{examStuId,jdbcType=INTEGER}
+  </update>
+</mapper>
